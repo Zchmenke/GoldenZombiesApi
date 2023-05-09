@@ -9,9 +9,9 @@ namespace GoldenZombiesApiProject
         {
 
         }
-        DbSet<Employee> Employees { get; set; }
-        DbSet<Project> Projects { get; set; }
-        DbSet<TimeReport> TimeReports { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<TimeReport> TimeReports { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

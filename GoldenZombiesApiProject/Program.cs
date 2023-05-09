@@ -1,4 +1,6 @@
+using GoldenZombiesApiProject.Services;
 using Microsoft.EntityFrameworkCore;
+using ModelLibrary.Models;
 
 namespace GoldenZombiesApiProject
 {
@@ -17,11 +19,11 @@ namespace GoldenZombiesApiProject
 
 
             builder.Services.AddDbContext<Context>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection-John")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection-Henrik")));
 
+            builder.Services.AddScoped<IEmployeeRepository<Employee>,EmployeeRepository>();
 
-
-            var app = builder.Build();
+             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
