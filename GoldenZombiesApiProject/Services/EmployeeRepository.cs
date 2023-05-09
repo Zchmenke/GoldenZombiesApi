@@ -66,15 +66,7 @@ namespace GoldenZombiesApiProject.Services
             return employeeHours;
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployeeProjects(int id)
-        {
-            var employeeProjects = await (from employee in _context.Employees
-                                          join timeReport in _context.TimeReports on employee.Id equals timeReport.EmployeeId
-                                          join project in _context.Projects on timeReport.ProjectId equals project.Id
-                                          where employee.Id == id
-                                          select employee).ToListAsync();
-            return employeeProjects;
-        }
+      
 
         public async Task<Employee> Update(Employee newEmployee)
         {

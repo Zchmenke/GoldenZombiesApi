@@ -22,6 +22,7 @@ namespace GoldenZombiesApiProject
             options.UseSqlServer(builder.Configuration.GetConnectionString("Connection-Henrik")));
 
             builder.Services.AddScoped<IEmployeeRepository<Employee>,EmployeeRepository>();
+            builder.Services.AddScoped<IProjectRepository<Project>,ProjectRepository>();
 
              var app = builder.Build();
 

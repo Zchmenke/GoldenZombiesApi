@@ -48,24 +48,6 @@ namespace GoldenZombiesApiProject.Controllers
 
             }
         }
-        [HttpGet("{id:int}/projects")]
-        public async Task<ActionResult<Employee>> EmployeeProjects(int id)
-        {
-            var response = await _repo.Get(id);
-            try
-            {
-                if (response != null)
-                {
-                    return response;
-                }
-                return BadRequest("FEL");
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
-
-            }
-        }
+        
     }
 }
