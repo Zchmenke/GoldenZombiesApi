@@ -17,7 +17,7 @@ namespace GoldenZombiesApiProject
 
 
             builder.Services.AddDbContext<Context>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection-John")));
 
 
 
