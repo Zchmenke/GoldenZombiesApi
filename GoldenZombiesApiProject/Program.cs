@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace GoldenZombiesApiProject
 {
     public class Program
@@ -12,6 +14,12 @@ namespace GoldenZombiesApiProject
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+
+            builder.Services.AddDbContext<Context>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+
+
 
             var app = builder.Build();
 
