@@ -47,18 +47,28 @@ namespace GoldenZombiesApiProject.Services
                                         join employee in _context.Employees on timereport.EmployeeId equals employee.Id
                                         where timereport.EmployeeId == id && timereport.WeekNumber == weeknumber
                                         select new {
-                                            Name = employee.FirstName,
+                                            Name = employee.FirstName +" "+employee.LastName,
                                             Hours = timereport.HoursWorked,
                                             Week = timereport.WeekNumber
                                         }).ToListAsync();
             return employeeHours;
         }
-        public async Task<Employee> GetEmployeeandReports(int id)
+        public async Task<IEnumerable<object>> GetEmployeeandReports(int id)
         {
-            throw new NotImplementedException();
+            var employeeAndReports = await (from employee in _context.Employees
+                                            join timereport in _context.TimeReports on employee.Id equals timereport.EmployeeId
+                                            into employeeReports
+                                            where employee.Id == id
+                                            select new 
+                                            {
+                                                Id = employee.Id,
+                                                Name = employee.FirstName +" "+ employee.LastName,
+                                                TimeReports = employeeReports.ToList()
+                                            }).ToListAsync();
+            return employeeAndReports;
         }
 
-      
+
 
         public async Task<Employee> Update(Employee newEmployee)
         {

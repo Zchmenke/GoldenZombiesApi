@@ -8,7 +8,7 @@
         Task<Employee> Update(Employee newEmployee);
         Task<Employee> Delete(int id);
         Task<IEnumerable<object>> GetEmployeeHours(int id, int weeknumber);
-        Task<Employee> GetEmployeeandReports(int id);
+        Task<IEnumerable<object>> GetEmployeeandReports(int id);
        
     }
 }
