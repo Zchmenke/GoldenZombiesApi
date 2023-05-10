@@ -40,29 +40,17 @@ namespace GoldenZombiesApiProject.Services
             return await _context.Employees.ToListAsync();
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployeeHours(int id, int weeknumber)
+        public async Task<IEnumerable<object>> GetEmployeeHours(int id, int weeknumber)
         {
-            var employeeHours = await (from employee in _context.Employees
-                                       join timeReport in _context.TimeReports on employee.Id equals timeReport.EmployeeId
-                                       where employee.Id == id && timeReport.WeekNumber == weeknumber
-
-                                       select new Employee
-                                       {
-                                           Id = employee.Id,
-                                           FirstName = employee.FirstName,
-                                           LastName = employee.LastName,
-
-                                           TimeReports = new List<TimeReport>()
-                                           {
-                                               new TimeReport()
-                                               {
-                                                   Id = timeReport.Id,
-                                                   EmployeeId = timeReport.EmployeeId,
-                                                   WeekNumber = timeReport.WeekNumber,
-                                                   HoursWorked = timeReport.HoursWorked
-                                               }
-                                           }
-                                       }).ToListAsync();
+            
+            var employeeHours = await (from timereport in _context.TimeReports
+                                        join employee in _context.Employees on timereport.EmployeeId equals employee.Id
+                                        where timereport.EmployeeId == id && timereport.WeekNumber == weeknumber
+                                        select new {
+                                            Name = employee.FirstName,
+                                            Hours = timereport.HoursWorked,
+                                            Week = timereport.WeekNumber
+                                        }).ToListAsync();
             return employeeHours;
         }
 
