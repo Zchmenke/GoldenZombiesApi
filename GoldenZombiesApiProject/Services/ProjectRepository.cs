@@ -10,29 +10,45 @@ namespace GoldenZombiesApiProject.Services
         {
             this._context = _context;
         }
-        public Task<Project> Add(Project project)
+        public async Task<Project> Add(Project project)
         {
-            throw new NotImplementedException();
+            var projecttoAdd = await _context.Projects.AddAsync(project);
+            await _context.SaveChangesAsync();
+            return projecttoAdd.Entity;
         }
 
-        public Task<Project> Delete(int id)
+        public async Task<Project> Delete(int id)
         {
-            throw new NotImplementedException();
+            var projecttoDelete = await _context.Projects.FirstOrDefaultAsync(p => p.Id == id);
+            if(projecttoDelete != null)
+            {
+                _context.Projects.Remove(projecttoDelete);
+                await _context.SaveChangesAsync();
+            }
+            return projecttoDelete;
         }
 
         public Task<Project> Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Projects.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public Task<IEnumerable<Project>> GetAll()
+        public async Task<IEnumerable<Project>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Projects.ToListAsync();
         }
 
-        public Task<Project> Update(Project project)
+        public async Task<Project> Update(Project project)
         {
-            throw new NotImplementedException();
+            var projecttoUpdate = await _context.Projects.FirstOrDefaultAsync(p => p.Id == project.Id);
+            if(projecttoUpdate != null)
+            {
+                projecttoUpdate.ProjectName = project.ProjectName;
+                projecttoUpdate.ProjectStart = project.ProjectStart;
+                projecttoUpdate.ProjectEnd = project.ProjectEnd;
+                projecttoUpdate.IsActive = project.IsActive;
+            }
+            return projecttoUpdate;
         }
         public async Task<IEnumerable<object>> GetAllEmployees(int id) // ändrade till object så vi kan ta emot vilket object som helst.
         {

@@ -53,6 +53,10 @@ namespace GoldenZombiesApiProject.Services
                                         }).ToListAsync();
             return employeeHours;
         }
+        public async Task<Employee> GetEmployeeandReports(int id)
+        {
+            throw new NotImplementedException();
+        }
 
       
 
