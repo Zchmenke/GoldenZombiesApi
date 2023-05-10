@@ -7,6 +7,6 @@
         Task<Project> Add(Project project);
         Task<Project> Update(Project project);
         Task<Project> Delete(int id);
-        Task<IEnumerable<Project>> GetAllEmployees(int id);
+        Task<IEnumerable<object>> GetAllEmployees(int id);
     }
 }

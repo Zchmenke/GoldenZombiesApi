@@ -34,16 +34,17 @@ namespace GoldenZombiesApiProject.Services
         {
             throw new NotImplementedException();
         }
-        public async Task<IEnumerable<Project>> GetAllEmployees(int id) // Eventuellt fel på Join syntax
+        public async Task<IEnumerable<object>> GetAllEmployees(int id) // ändrade till object så vi kan ta emot vilket object som helst.
         {
             
 
-            var employeeProjects = await (from project in _context.Projects
+            var employeeProjects = await (from project in _context.Projects 
                                          join timeReport in _context.TimeReports on project.Id equals timeReport.ProjectId
-                                         join employee in _context.Employees on timeReport.EmployeeId equals employee.Id
-                                         where project.Id == id
-                                         select project).ToListAsync();
-            return employeeProjects;
+                                         join employee in _context.Employees on timeReport.EmployeeId equals employee.Id // Joins är desamma.
+
+                                         where project.Id == id   // ändrade från employeeId till project.id eftersom vi ska kolla vilka som jobbar med det "ProjectId:et"
+                                         select employee).ToListAsync(); // gjorde en lista av employees istället för project.
+            return employeeProjects; // returnerar nu en lista av employees, tidigare var det en lista av projekt.
 
         }
     }
