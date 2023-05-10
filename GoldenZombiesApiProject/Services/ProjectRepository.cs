@@ -47,6 +47,8 @@ namespace GoldenZombiesApiProject.Services
                 projecttoUpdate.ProjectStart = project.ProjectStart;
                 projecttoUpdate.ProjectEnd = project.ProjectEnd;
                 projecttoUpdate.IsActive = project.IsActive;
+
+                await _context.SaveChangesAsync();
             }
             return projecttoUpdate;
         }
