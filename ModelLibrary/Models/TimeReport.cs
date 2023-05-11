@@ -13,13 +13,17 @@ namespace ModelLibrary.Models
         [Key]
         public int Id { get; set; }
 
+        [Required(ErrorMessage ="Must Set the Employees ID")]
         public int EmployeeId { get; set; }
         [JsonIgnore]
         public Employee Employee { get; set; }
+        [Required(ErrorMessage = "Must Set the Projects ID")]
         public int ProjectId { get; set; }
         [JsonIgnore]
         public Project project { get; set; }
+        [Required(ErrorMessage = "Insert number of hours worked")]
         public double HoursWorked  { get; set; }
+        [Required(ErrorMessage = "Insert related week number")]
         public int WeekNumber { get; set; }
 
 

@@ -45,7 +45,7 @@ namespace GoldenZombiesApiProject.Controllers
                   "Error while retrieving from database");
             }
         }
-        [HttpPost("AddNewReport")]
+        [HttpPost("/AddNewReport")]
         public async Task<ActionResult<TimeReport>> Add(TimeReport report)
         {
             try
@@ -64,7 +64,7 @@ namespace GoldenZombiesApiProject.Controllers
                   "Error while adding to the database");
             }
         }
-        [HttpDelete("DeleteReport")]
+        [HttpDelete("/DeleteReport")]
         public async Task<ActionResult<TimeReport>> Delete(int id)
         {
             try
@@ -83,7 +83,7 @@ namespace GoldenZombiesApiProject.Controllers
                  "Error while deleting from the database");
             }
         }
-        [HttpPut("UpdateReport")]
+        [HttpPut("/UpdateReport")]
         public async Task<ActionResult<TimeReport>> Update(int id, TimeReport timeReport)
         {
             try

@@ -26,10 +26,10 @@ namespace GoldenZombiesApiProject.Controllers
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error");
+                    "Error while fetching data");
             }
         }
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}/GetHoursForEmployee")]
         public async Task<ActionResult<IEnumerable<Employee>>> EmployeeHours(int id,int weekNumber)
         {
             var response = await _repo.GetEmployeeHours(id,weekNumber);
@@ -39,16 +39,16 @@ namespace GoldenZombiesApiProject.Controllers
                 {
                     return Ok(response); 
                 }
-                return BadRequest("FEL");
+                return BadRequest("ID or week number does not exists in the database");
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
+                   "Error while fetching from database");
 
             }
         }
-        [HttpGet("/EmployeeandReports{id:int}")]
+        [HttpGet("{id:int}/EmployeeandReports")]
         public async Task<ActionResult<Employee>> GetEmployeeandReports(int id)
         {
             var response = await _repo.GetEmployeeandReports(id);
@@ -58,13 +58,13 @@ namespace GoldenZombiesApiProject.Controllers
                 {
                     return Ok(response);
                 }
-                return BadRequest("Fel");
+                return BadRequest($"Employee with ID:{id} does not exist");
             }
             catch (Exception)
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
+                   "Error while fetching from database");
             }
         }
         [HttpPost("/AddEmployee")]
@@ -84,7 +84,7 @@ namespace GoldenZombiesApiProject.Controllers
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
+                   "Error while adding employee to database");
             }
         }
 
@@ -99,13 +99,13 @@ namespace GoldenZombiesApiProject.Controllers
                    return await _repo.Delete(id);
                 }
 
-                return NotFound("Employee with ID does not exsist");
+                return NotFound($"Employee with ID{id} does not exist");
             }
             catch (Exception)
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
+                   "Error while deleting from database");
             }
         }
 
@@ -117,7 +117,7 @@ namespace GoldenZombiesApiProject.Controllers
             {
                 if( id != employee.Id)
                 {
-                    return BadRequest("User ID dose not exsist");
+                    return BadRequest($"User with ID {id} does not exist");
                 }
 
                 var response = await _repo.Update(employee);
@@ -128,7 +128,7 @@ namespace GoldenZombiesApiProject.Controllers
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
+                   "Error while updating database");
             }
         }
 

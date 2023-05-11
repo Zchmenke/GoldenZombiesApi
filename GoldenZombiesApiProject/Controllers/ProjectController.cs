@@ -14,7 +14,7 @@ namespace GoldenZombiesApiProject.Controllers
             _repo = repo;
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}/GetAllProjectEmployees")]
         public async Task<ActionResult<Project>> GetEmployees(int id)
         {
             var response = await _repo.GetAllEmployees(id);
@@ -24,12 +24,12 @@ namespace GoldenZombiesApiProject.Controllers
                 {
                     return Ok(response);
                 }
-                return BadRequest("FEL");
+                return BadRequest($"Project with ID:{id} does not exist");
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
+                   "Error while fetching from database");
 
             }
         }
@@ -47,7 +47,7 @@ namespace GoldenZombiesApiProject.Controllers
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
+                   "Error while fetching from database");
             }
         }
 
@@ -64,7 +64,7 @@ namespace GoldenZombiesApiProject.Controllers
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
+                   "Error while fetching from database");
             }
         }
 
@@ -86,7 +86,7 @@ namespace GoldenZombiesApiProject.Controllers
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
+                   "Error while adding to database");
             }
         }
 
@@ -109,7 +109,7 @@ namespace GoldenZombiesApiProject.Controllers
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
+                   "Error while deleting from database");
             }
         }
 
@@ -121,7 +121,7 @@ namespace GoldenZombiesApiProject.Controllers
             {
                 if(id != project.Id)
                 {
-                    return BadRequest("Project ID do not not exsist");
+                    return BadRequest($"Project ID:{id} do not exist");
                 }
 
                 var ProjectUpdate = await _repo.Get(id);
@@ -133,7 +133,7 @@ namespace GoldenZombiesApiProject.Controllers
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error");
+                   "Error while updating database");
             }
         }
 
