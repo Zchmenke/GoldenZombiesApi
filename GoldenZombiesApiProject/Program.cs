@@ -19,10 +19,11 @@ namespace GoldenZombiesApiProject
 
 
             builder.Services.AddDbContext<Context>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection-Kenny")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection-Henrik")));
 
             builder.Services.AddScoped<IEmployeeRepository<Employee>,EmployeeRepository>();
             builder.Services.AddScoped<IProjectRepository<Project>,ProjectRepository>();
+            builder.Services.AddScoped<ITimeReportRepository<TimeReport>,TimeReportRepository>();
 
              var app = builder.Build();
 
