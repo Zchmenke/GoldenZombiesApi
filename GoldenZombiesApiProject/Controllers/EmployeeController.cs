@@ -1,6 +1,8 @@
-﻿using GoldenZombiesApiProject.Services;
+﻿using AutoMapper;
+using GoldenZombiesApiProject.Services;
 using Microsoft.AspNetCore.Mvc;
 using ModelLibrary.Models;
+using ModelLibrary.DTO_s;
 using System.Linq.Expressions;
 
 namespace GoldenZombiesApiProject.Controllers
@@ -10,9 +12,11 @@ namespace GoldenZombiesApiProject.Controllers
     public class EmployeeController : ControllerBase
     {
         private IEmployeeRepository<Employee> _repo;
-        public EmployeeController(IEmployeeRepository<Employee> repo)
+        private readonly IMapper _map;
+        public EmployeeController(IEmployeeRepository<Employee> repo,IMapper map)
         {
             this._repo = repo;
+            _map = map;
         }
 
         [HttpGet]
@@ -20,7 +24,9 @@ namespace GoldenZombiesApiProject.Controllers
         {
             try
             {
-                return Ok(await _repo.GetAll());
+                var employees = await _repo.GetAll();
+                var dto = _map.Map<List<EmployeeDTO>>(employees); // Added DTO's for testing
+                return Ok(dto);
             }
             catch (Exception)
             {
@@ -73,9 +79,10 @@ namespace GoldenZombiesApiProject.Controllers
             try
             {
                 var response = await _repo.Add(newemployee);
-                if(response != null)
+                var dto = _map.Map<EmployeeDTO>(response); // Added DTO's for testing
+                if (response != null)
                 {
-                    return Ok(response);
+                    return Ok(dto);
                 }
                 return null;
 

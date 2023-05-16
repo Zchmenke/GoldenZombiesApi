@@ -6,6 +6,7 @@ namespace GoldenZombiesApiProject.Services
     public class EmployeeRepository : IEmployeeRepository<Employee>
     {
         private Context _context;
+
         public EmployeeRepository(Context context)
         {
             _context = context;
