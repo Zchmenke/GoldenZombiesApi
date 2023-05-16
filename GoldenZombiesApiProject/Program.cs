@@ -1,6 +1,8 @@
 using GoldenZombiesApiProject.Services;
 using Microsoft.EntityFrameworkCore;
 using ModelLibrary.Models;
+using AutoMapper;
+using ModelLibrary.DTO_s;
 
 namespace GoldenZombiesApiProject
 {
@@ -25,7 +27,20 @@ namespace GoldenZombiesApiProject
             builder.Services.AddScoped<IProjectRepository<Project>,ProjectRepository>();
             builder.Services.AddScoped<ITimeReportRepository<TimeReport>,TimeReportRepository>();
 
-             var app = builder.Build();
+
+            /////////////////////////////////////////////////
+            // Configure Automapper.
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+            builder.Services.AddSingleton(mapper);
+            /////////////////////////////////////////////////
+
+
+            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -43,5 +58,17 @@ namespace GoldenZombiesApiProject
 
             app.Run();
         }
+
+        /////////////////////////////////////////////////
+        //Automapper class
+        public class MappingProfile : Profile
+        {
+            public MappingProfile()
+            {
+                CreateMap<Employee,EmployeeDTO>();
+               
+            }
+        }
+        /////////////////////////////////////////////////
     }
 }
